@@ -61,5 +61,10 @@ namespace SQLEmployeesConnection
             Job job = (Job)dataGridViewJobs.Rows[e.RowIndex].DataBoundItem;
             DBManager.UpdateJob(job);
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            FillDataGridView();
+        }
     }
 }

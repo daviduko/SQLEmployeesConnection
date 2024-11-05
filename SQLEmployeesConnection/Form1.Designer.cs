@@ -33,6 +33,7 @@
             this.labelConnection = new System.Windows.Forms.Label();
             this.btnNewJob = new System.Windows.Forms.Button();
             this.dataGridViewJobs = new System.Windows.Forms.DataGridView();
+            this.btnRefresh = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewJobs)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,11 +89,22 @@
             this.dataGridViewJobs.TabIndex = 4;
             this.dataGridViewJobs.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobs_CellValueChanged);
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(32, 400);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(75, 23);
+            this.btnRefresh.TabIndex = 5;
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(492, 450);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.dataGridViewJobs);
             this.Controls.Add(this.btnNewJob);
             this.Controls.Add(this.labelConnection);
@@ -113,6 +125,7 @@
         private System.Windows.Forms.Label labelConnection;
         private System.Windows.Forms.Button btnNewJob;
         private System.Windows.Forms.DataGridView dataGridViewJobs;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 
