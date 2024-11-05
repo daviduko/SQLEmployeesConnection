@@ -51,7 +51,7 @@ namespace SQLEmployeesConnection
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Ocurrió un error: " + ex.Message);
+                Console.WriteLine("Error: " + ex.Message);
                 throw;
             }
         }
@@ -86,9 +86,21 @@ namespace SQLEmployeesConnection
             return jobs;
         }
 
-        public static void UpdateJob()
+        public static void UpdateJob(Job job)
         {
+            string query = "UPDATE jobs " +
+                "SET job_title = @JobTitle, min_salary = @MinSalary, max_salary = @MaxSalary " +
+                "WHERE job_id = @JobId";
 
+            using (SqlCommand cmd = new SqlCommand(query, connection))
+            {
+                cmd.Parameters.AddWithValue("@JobId", job.IdJob);
+                cmd.Parameters.AddWithValue("@JobTitle", job.JobTitle);
+                cmd.Parameters.AddWithValue("@MinSalary", job.MinSalary ?? (object)DBNull.Value);
+                cmd.Parameters.AddWithValue("@MaxSalary", job.MaxSalary ?? (object)DBNull.Value);
+
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

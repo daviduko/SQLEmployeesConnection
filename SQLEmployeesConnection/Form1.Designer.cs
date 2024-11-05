@@ -86,6 +86,7 @@
             this.dataGridViewJobs.Name = "dataGridViewJobs";
             this.dataGridViewJobs.Size = new System.Drawing.Size(432, 211);
             this.dataGridViewJobs.TabIndex = 4;
+            this.dataGridViewJobs.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewJobs_CellValueChanged);
             // 
             // Form1
             // 

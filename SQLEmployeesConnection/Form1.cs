@@ -27,8 +27,9 @@ namespace SQLEmployeesConnection
         private void FillDataGridView()
         {
             BindingList<Job> jobs = new BindingList<Job>(DBManager.GetJobList());
-
             dataGridViewJobs.DataSource = jobs;
+
+            dataGridViewJobs.Columns["IdJob"].ReadOnly = true;
         }
 
         private void btnConnect_Click(object sender, EventArgs e)
@@ -53,6 +54,12 @@ namespace SQLEmployeesConnection
         {
             Form form = new Form2();
             form.Show();
+        }
+
+        private void dataGridViewJobs_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            Job job = (Job)dataGridViewJobs.Rows[e.RowIndex].DataBoundItem;
+            DBManager.UpdateJob(job);
         }
     }
 }
