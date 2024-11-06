@@ -8,7 +8,7 @@ namespace SQLEmployeesConnection.Scripts
 {
     internal abstract class DAL<T>
     {
-        private DBConnect dbConnect;
+        protected DBConnect dbConnect;
 
         protected DAL()
         {

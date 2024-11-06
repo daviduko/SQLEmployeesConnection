@@ -7,8 +7,6 @@ namespace SQLEmployeesConnection.Scripts
 {
     internal class DALJob : DAL<Job>
     {
-        private DBConnect dbConnect;
-
         public DALJob()
         {
             dbConnect = new DBConnect();
