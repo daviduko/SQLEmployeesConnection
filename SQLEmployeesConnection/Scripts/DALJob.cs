@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace SQLEmployeesConnection.Scripts
 {
-    internal class DALJob
+    internal class DALJob : DAL<Job>
     {
         private DBConnect dbConnect;
 
@@ -14,7 +14,7 @@ namespace SQLEmployeesConnection.Scripts
             dbConnect = new DBConnect();
         }
 
-        public void Insert(Job job)
+        public override void Insert(Job job)
         {
             string sql = @"
                 INSERT INTO jobs (job_title, min_salary, max_salary)
@@ -41,7 +41,36 @@ namespace SQLEmployeesConnection.Scripts
             }
         }
 
-        public List<Job> GetList()
+        public override void Update(Job job)
+        {
+            string query = "UPDATE jobs " +
+                "SET job_title = @JobTitle, min_salary = @MinSalary, max_salary = @MaxSalary " +
+                "WHERE job_id = @JobId";
+
+            try
+            {
+                dbConnect.Connect();
+
+                using (SqlCommand cmd = new SqlCommand(query, dbConnect.Connection))
+                {
+                    cmd.Parameters.AddWithValue("@JobId", job.IdJob);
+                    cmd.Parameters.AddWithValue("@JobTitle", job.JobTitle);
+                    cmd.Parameters.AddWithValue("@MinSalary", job.MinSalary ?? (object)DBNull.Value);
+                    cmd.Parameters.AddWithValue("@MaxSalary", job.MaxSalary ?? (object)DBNull.Value);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                dbConnect.Disconnect();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        public override List<Job> GetListOf()
+
         {
             List<Job> jobs = new List<Job>();
 
@@ -81,34 +110,6 @@ namespace SQLEmployeesConnection.Scripts
             }
 
             return jobs;
-        }
-
-        public void Update(Job job)
-        {
-            string query = "UPDATE jobs " +
-                "SET job_title = @JobTitle, min_salary = @MinSalary, max_salary = @MaxSalary " +
-                "WHERE job_id = @JobId";
-
-            try
-            {
-                dbConnect.Connect();
-
-                using (SqlCommand cmd = new SqlCommand(query, dbConnect.Connection))
-                {
-                    cmd.Parameters.AddWithValue("@JobId", job.IdJob);
-                    cmd.Parameters.AddWithValue("@JobTitle", job.JobTitle);
-                    cmd.Parameters.AddWithValue("@MinSalary", job.MinSalary ?? (object)DBNull.Value);
-                    cmd.Parameters.AddWithValue("@MaxSalary", job.MaxSalary ?? (object)DBNull.Value);
-
-                    cmd.ExecuteNonQuery();
-                }
-
-                dbConnect.Disconnect();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
         }
     }
 }

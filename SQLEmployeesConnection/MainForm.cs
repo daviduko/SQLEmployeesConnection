@@ -20,7 +20,7 @@ namespace SQLEmployeesConnection
 
         private void FillDataGridView()
         {
-            BindingList<Job> jobs = new BindingList<Job>(DALJob.GetList());
+            BindingList<Job> jobs = new BindingList<Job>(DALJob.GetListOf());
             dataGridViewJobs.DataSource = jobs;
 
             dataGridViewJobs.Columns["IdJob"].ReadOnly = true;

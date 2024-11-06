@@ -52,6 +52,7 @@
     <Compile Include="NewJobForm.Designer.cs">
       <DependentUpon>NewJobForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Scripts\DAL.cs" />
     <Compile Include="Scripts\DALJob.cs" />
     <Compile Include="Scripts\DBConnect.cs" />
     <Compile Include="MainForm.cs">
