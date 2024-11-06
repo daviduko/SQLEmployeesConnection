@@ -25,6 +25,22 @@ namespace SQLEmployeesConnection
 
             dataGridViewJobs.Columns["IdJob"].ReadOnly = true;
         }
+        private void btnNewJob_Click(object sender, EventArgs e)
+        {
+            Form form = new NewJobForm();
+            form.Show();
+        }
+
+        private void dataGridViewJobs_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            Job job = (Job)dataGridViewJobs.Rows[e.RowIndex].DataBoundItem;
+            DALJob.Update(job);
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            FillDataGridView();
+        }
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
@@ -44,21 +60,5 @@ namespace SQLEmployeesConnection
             labelConnection.Text = "Closed";
         }
 
-        private void btnNewJob_Click(object sender, EventArgs e)
-        {
-            Form form = new NewJobForm();
-            form.Show();
-        }
-
-        private void dataGridViewJobs_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            Job job = (Job)dataGridViewJobs.Rows[e.RowIndex].DataBoundItem;
-            DALJob.Update(job);
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            FillDataGridView();
-        }
     }
 }

@@ -7,16 +7,14 @@ namespace SQLEmployeesConnection.Scripts
 {
     internal class DALJob : DAL<Job>
     {
-        public DALJob()
-        {
-            dbConnect = new DBConnect();
-        }
+        public DALJob() : base() { }
 
         public override void Insert(Job job)
         {
             string sql = @"
                 INSERT INTO jobs (job_title, min_salary, max_salary)
-                VALUES (@JobTitle, @MinSalary, @MaxSalary)";
+                VALUES (@JobTitle, @MinSalary, @MaxSalary);
+                SELECT SCOPE_IDENTITY();";
 
             try
             {
@@ -29,6 +27,9 @@ namespace SQLEmployeesConnection.Scripts
                     cmd.Parameters.AddWithValue("@MaxSalary", job.MaxSalary ?? (object)DBNull.Value);
 
                     cmd.ExecuteNonQuery();
+
+                    ////if we want to store id from job selected
+                    //job.IdJob = (int)cmd.ExecuteScalar();
                 }
 
                 dbConnect.Disconnect();
