@@ -14,19 +14,22 @@ using SQLEmployeesConnection.Scripts;
 
 namespace SQLEmployeesConnection
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
-        public Form1()
+        DALJob DALJob;
+        DBConnect dbConnect;
+
+        public MainForm()
         {
             InitializeComponent();
-
-            DBManager.Connect();
+            DALJob = new DALJob();
+            dbConnect = new DBConnect();
             FillDataGridView();
         }
 
         private void FillDataGridView()
         {
-            BindingList<Job> jobs = new BindingList<Job>(DBManager.GetJobList());
+            BindingList<Job> jobs = new BindingList<Job>(DALJob.GetList());
             dataGridViewJobs.DataSource = jobs;
 
             dataGridViewJobs.Columns["IdJob"].ReadOnly = true;
@@ -34,7 +37,7 @@ namespace SQLEmployeesConnection
 
         private void btnConnect_Click(object sender, EventArgs e)
         {
-            DBManager.Connect();
+            dbConnect.Connect();
 
             btnConnect.Enabled = false;
             btnDisconnect.Enabled = true;
@@ -43,7 +46,7 @@ namespace SQLEmployeesConnection
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
-            DBManager.Disconnect();
+            dbConnect.Disconnect();
 
             btnDisconnect.Enabled = false;
             btnConnect.Enabled = true;
@@ -52,14 +55,14 @@ namespace SQLEmployeesConnection
 
         private void btnNewJob_Click(object sender, EventArgs e)
         {
-            Form form = new Form2();
+            Form form = new NewJobForm();
             form.Show();
         }
 
         private void dataGridViewJobs_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             Job job = (Job)dataGridViewJobs.Rows[e.RowIndex].DataBoundItem;
-            DBManager.UpdateJob(job);
+            DALJob.Update(job);
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

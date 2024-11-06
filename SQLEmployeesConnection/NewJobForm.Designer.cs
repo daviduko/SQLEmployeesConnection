@@ -1,6 +1,6 @@
 ﻿namespace SQLEmployeesConnection
 {
-    partial class Form2
+    partial class NewJobForm
     {
         /// <summary>
         /// Required designer variable.

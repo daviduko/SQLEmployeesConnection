@@ -11,17 +11,20 @@ using System.Windows.Forms;
 
 namespace SQLEmployeesConnection
 {
-    public partial class Form2 : Form
+    public partial class NewJobForm : Form
     {
-        public Form2()
+        DALJob DALJob;
+
+        public NewJobForm()
         {
             InitializeComponent();
+            DALJob = new DALJob();
         }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
             Job job = new Job(txtTitle.Text, numMinSalary.Value, numMaxSalary.Value);
-            DBManager.InsertJob(job);
+            DALJob.Insert(job);
         }
 
         private void txtTitle_TextChanged(object sender, EventArgs e)
